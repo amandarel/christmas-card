@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Natal!</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <audio id="bgMusic" loop>
+            <source src="firstsnow.mp3" type="audio/ogg"> 
+        </audio>
+
+        <div id="snow-container"></div>
+
+        <div class="gift-container" id="giftBox">
+            <div class="gift-box">
+                <div class="gift-lid">
+                    <div class="ribbon-bow">
+                        <div class="bow-left"></div>
+                        <div class="bow-right"></div>
+                    </div>
+                </div>
+                <div class="gift-body">
+                    <div class="ribbon-vertical"></div>
+                    <div class="ribbon-horizontal"></div>
+                </div>
+            </div>
+            <div class="click-text">Klik untuk Buka 🎁</div>
+            <div class="shadow"></div>
+        </div>
+
+        <div class="christmas-card hidden" id="christmasCard">
+            <div class="card-content">
+                <div class="tree-icon">🎄</div>
+                <h1 class="title">Selamat Natal</h1>
+                <h2 class="sub-title">Dan Tahun Baru 2026</h2>
+                
+                <p class="message">
+                    Semoga damai, sukacita, dan kebahagiaan Natal menyertai hari-harimu. <br>
+                    Kiranya terang Natal memberikan harapan baru di tahun yang akan datang. <br>
+                    Selamat berkumpul bersama orang-orang tersayang.
+                </p>
+
+                <div class="sender">
+                    <p>Love,</p>
+                    <b>Adam's Family</b>
+                </div>
+
+                <button class="close-btn" onclick="resetGift()">Tutup Kartu</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
