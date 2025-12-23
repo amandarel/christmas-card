@@ -9,6 +9,16 @@ const audio = document.getElementById('bgMusic'); // Ambil elemen audio
 
 giftBox.addEventListener('click', openGift);
 
+window.onload = function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const recipient = urlParams.get('to');
+
+    if (recipient) {
+        document.getElementById('recipient-name').innerText = recipient;
+        document.title = "Untuk " + recipient + " - Selamat Natal!";
+    }
+};
+
 function createSnow() {
     for (let i = 0; i < 50; i++) {
         const snowflake = document.createElement('div');
