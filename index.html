@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kartu Ucapan Natal GKII "Eben Haezer" Tondano</title>
+    <style>
+        :root {
+            --primary-red: #c0392b;
+            --dark-red: #96281b;
+            --gold: #f1c40f;
+            --white: #ffffff;
+        }
+
+        body {
+            background-color: var(--dark-red);
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        /* --- Animasi Salju --- */
+        .snow {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 0;
+        }
+
+        /* --- Kado (Gift Box) --- */
+        .gift-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            cursor: pointer;
+            z-index: 10;
+            transition: transform 0.3s;
+        }
+
+        .gift-container:hover {
+            transform: scale(1.05);
+        }
+
+        .gift-box {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: var(--primary-red);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* Pita Kado */
+        .gift-box::before, .gift-box::after {
+            content: '';
+            position: absolute;
+            background-color: var(--gold);
+        }
+
+        .gift-box::before { width: 40px; height: 100%; left: 80px; } /* Pita Vertikal */
+        .gift-box::after { width: 100%; height: 40px; top: 80px; } /* Pita Horisontal */
+
+        /* Tutup Kado */
+        .gift-lid {
+            position: absolute;
+            width: 220px;
+            height: 50px;
+            background-color: var(--primary-red);
+            top: -20px;
+            left: -10px;
+            border-radius: 5px;
+            z-index: 11;
+            transition: all 0.8s ease;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+        }
+
+        .gift-lid::before {
+            content: '🎁'; /* Icon pita di atas */
+            position: absolute;
+            top: -40px; left: 80px;
+            font-size: 50px;
+        }
+
+        #card {
+            display: none;
+            position: absolute;
+            width: 350px;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            z-index: 5;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .logo { max-width: 120px; }
+        h1 { color: var(--primary-red); font-family: 'Georgia', serif; font-size: 2rem; margin-bottom:20px;}
+        .year { color: var(black); font-size: 1.5rem; font-weight: bold; }
+        .message { color: black; line-height: 1.6; margin-top: 20px; font-size: 1.2rem; }
+        .company { margin-top: 30px; font-weight: bold; color: #555; font-size: 0.9rem; }
+
+        /* --- Animasi Saat Kado Dibuka --- */
+        .opened .gift-lid {
+            transform: translateY(-200px) rotate(20deg);
+            opacity: 0;
+        }
+
+        .opened .gift-box {
+            transform: translateY(300px);
+            opacity: 0;
+            transition: all 1s ease;
+        }
+
+        .show-card {
+            display: block !important;
+            animation: cardAppear 1s forwards ease-out;
+        }
+
+        @keyframes cardAppear {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .instruction {
+            position: absolute; bottom: 50px; color: white;
+            font-family: sans-serif; letter-spacing: 2px;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink { 50% { opacity: 0.3; } }
+    </style>
+</head>
+<body>
+
+
+    <canvas class="snow" id="snowCanvas"></canvas>
+
+    <div class="instruction" id="instructionText">TAP KADO UNTUK MEMBUKA</div>
+
+    <!-- Kado -->
+    <div class="gift-container" id="gift" onclick="openGift()">
+        <div class="gift-lid"></div>
+        <div class="gift-box"></div>
+    </div>
+
+    <!-- Kartu Ucapan -->
+    <div id="card">
+        <img src="logo.png" alt="Logo" class="logo"> 
+        <div class="year">GKII "Eben Haezer" Tondano</div>
+        <h1>Merry Christmas</h1>
+        <div class="message">
+            Ia yang duduk di atas takhta itu berkata: "Lihatlah, Aku menjadikan segala sesuatu baru! " Dan firman-Nya: "Tuliskanlah, karena segala perkataan ini adalah tepat dan benar. 
+            <br><b>Wahyu 21:5</b>
+        </div>
+        <div class="company">
+            <b>@gkiiebenhaezer</b>
+        </div>
+    </div>
+
+    <script>
+        function openGift() {
+            const gift = document.getElementById('gift');
+            const instruction = document.getElementById('instructionText');
+            gift.classList.add('opened');
+            instruction.style.display = 'none';
+
+            setTimeout(() => {
+                const card = document.getElementById('card');
+                card.classList.add('show-card');
+                document.body.style.backgroundColor = '#c0392b';
+            }, 600);
+        }
+
+        const canvas = document.getElementById('snowCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particles = [];
+        for (let i = 0; i < 100; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                r: Math.random() * 4 + 1,
+                d: Math.random() * 10
+            });
+        }
+
+        function drawSnow() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "white";
+            ctx.beginPath();
+            for (let i = 0; i < particles.length; i++) {
+                let p = particles[i];
+                ctx.moveTo(p.x, p.y);
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2, true);
+            }
+            ctx.fill();
+            moveSnow();
+        }
+
+        function moveSnow() {
+            for (let i = 0; i < particles.length; i++) {
+                let p = particles[i];
+                p.y += Math.cos(p.d) + 1 + p.r / 2;
+                p.x += Math.sin(0) * 2;
+                if (p.y > canvas.height) {
+                    particles[i] = { x: Math.random() * canvas.width, y: -10, r: p.r, d: p.d };
+                }
+            }
+        }
+
+        setInterval(drawSnow, 30);
+    </script>
+</body>
+</html>
